@@ -1,0 +1,56 @@
+﻿<Page
+    x:Class="DigitRecognition.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ViewModels="clr-namespace:DigitRecognition.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DigitRecognition.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="SettingsPage"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <ViewModels:SettingsPageViewModel />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5,0" />
+            <Setter Property="Padding" Value="5,0" />
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <StackPanel>
+            <GroupBox Header="Количество эпох">
+                <TextBox Text="{Binding EpochsQuantity}" />
+            </GroupBox>
+
+            <GroupBox Header="Степень обучения">
+                <TextBox Text="{Binding BatchSize}" />
+            </GroupBox>
+
+            <GroupBox Header="Расположение датасета">
+                <DockPanel>
+                    <Button Command="{Binding ChangePathToDatasetCommand, Mode=OneWay}" DockPanel.Dock="Left">...</Button>
+                    <TextBox
+                        DockPanel.Dock="Left"
+                        IsReadOnly="True"
+                        Text="{Binding PathToDataset}" />
+                </DockPanel>
+            </GroupBox>
+
+            <GroupBox Header="Расположение сохранненых данных">
+                <DockPanel>
+                    <Button Command="{Binding ChangePathToSavingsCommand, Mode=OneWay}" DockPanel.Dock="Left">...</Button>
+                    <TextBox
+                        DockPanel.Dock="Left"
+                        IsReadOnly="True"
+                        Text="{Binding PathToSavings}" />
+                </DockPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</Page>

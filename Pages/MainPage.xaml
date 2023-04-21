@@ -1,0 +1,103 @@
+﻿<Page
+    x:Class="DigitRecognition.Pages.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ViewModels="clr-namespace:DigitRecognition.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:DigitRecognition.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainPage"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <ViewModels:MainPageViewModel />
+    </Page.DataContext>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding InitDevicesCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="Padding" Value="3" />
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Viewbox>
+            <InkCanvas
+                x:Name="canvas"
+                Width="28"
+                Height="28"
+                Background="Black">
+                <InkCanvas.DefaultDrawingAttributes>
+                    <DrawingAttributes FitToCurve="True" Color="White" />
+                </InkCanvas.DefaultDrawingAttributes>
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="StrokeCollected">
+                        <i:InvokeCommandAction Command="{Binding RecognizeCommand}" CommandParameter="{Binding ElementName=canvas, Mode=OneWay}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </InkCanvas>
+        </Viewbox>
+
+        <GridSplitter
+            Grid.Column="1"
+            Width="4"
+            HorizontalAlignment="Stretch" />
+
+        <StackPanel Grid.Column="2">
+            <GroupBox Header="Активное устройство">
+                <ComboBox ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </GroupBox>
+
+            <StackPanel Orientation="Horizontal">
+                <Button
+                    Command="{Binding ClearCommand, Mode=OneWay}"
+                    CommandParameter="{Binding ElementName=canvas, Mode=OneWay}"
+                    ToolTip="Очистить">
+                    <Image Source="/Images/eraser.png" />
+                </Button>
+
+                <Button Command="{Binding ReadCommand, Mode=OneWay}" ToolTip="Открыть">
+                    <Image Source="/Images/read.png" />
+                </Button>
+
+                <Button Command="{Binding SaveCommand, Mode=OneWay}" ToolTip="Сохранить">
+                    <Image Source="/Images/save.png" />
+                </Button>
+
+                <Button Command="{Binding RunLearningCommand, Mode=OneWay}" ToolTip="Начать обучение">
+                    <Image Source="/Images/education.png" />
+                </Button>
+
+                <Button Command="{Binding OpenSettingsCommand, Mode=OneWay}" ToolTip="Настройки">
+                    <Image Source="/Images/settings.png" />
+                </Button>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Page>
