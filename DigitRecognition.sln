@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitRecognition", "DigitRecognition.csproj", "{3CAAE8E1-FA19-4329-8AC6-FF1DA3F85FF5}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "NeuralNetwork", "..\NeuralNetwork\NeuralNetwork.fsproj", "{EE08D9E4-B73F-4079-943B-A1B462C9D474}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "NeuralNetwork", "NeuralNetwork\NeuralNetwork.fsproj", "{EE08D9E4-B73F-4079-943B-A1B462C9D474}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
