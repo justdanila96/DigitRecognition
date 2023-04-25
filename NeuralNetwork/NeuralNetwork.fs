@@ -150,12 +150,17 @@ type Brain(accelerator: Accelerator, rate: float32, sizes: int array) =
 
     member this.Recognize(binData: byte array, pixelSize: int, accelerator: Accelerator) =
 
+        //let inputData =
+        //    binData
+        //    |> Array.chunkBySize pixelSize
+        //    |> Array.map (fun chunk ->
+        //        let chunkf = chunk |> Array.map (fun item -> item |> Convert.ToSingle)
+        //        (chunkf[0] + chunkf[1] + chunkf[2]) / 3f)
+
         let inputData =
             binData
             |> Array.chunkBySize pixelSize
-            |> Array.map (fun chunk ->
-                let chunkf = chunk |> Array.map (fun item -> item |> Convert.ToSingle)
-                (chunkf[0] + chunkf[1] + chunkf[2]) / 3f)
+            |> Array.map (fun chunk -> chunk |> Array.take 3 |> Array.averageBy (fun i -> Convert.ToSingle(i)))
 
         let outputs = this.FeedForward(inputData, accelerator)
         let maxVal = outputs |> Array.max
